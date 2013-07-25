@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>hibernate-osi-usrdir</artifactId>
+	<description>Hibernate OSI Userdir Module</description>
+	
+	<parent>
+		<groupId>com.ibm.ws.samples</groupId>
+		<artifactId>hibernate-osi</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.ibm.ws.samples</groupId>
+			<artifactId>hibernate-osi-application</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/wlp-usr-dir</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/wlp-usr-dir</directory>
+									<include>**</include>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<includeEmptyDirs>true</includeEmptyDirs>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/wlp-usr-dir/shared/resources/HibernateSampleLibs</outputDirectory>
+							<includeScope>provided</includeScope>
+							<excludeArtifactIds>hibernate-osi-application</excludeArtifactIds>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-built-apps</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/wlp-usr-dir/servers/HibernateSample/apps/</outputDirectory>
+							<includeArtifactIds>hibernate-osi-application</includeArtifactIds>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
