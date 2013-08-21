@@ -12,7 +12,7 @@
 
 	<include location="${shared.config.dir}/HibernateSampleLibs.xml"/>
 
-    <application id="PhoneBookByHibernate" location="hibernate-osi-application.war" name="PhoneBookByHibernate" type="war">
+    <application id="hibernate-osi-application" location="hibernate-osi-application.war" name="hibernate-osi-application" type="war">
 		<classloader commonLibraryRef="HibernateSampleLibs"/>
 	</application>
 </server>
