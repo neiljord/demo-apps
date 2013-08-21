@@ -3,21 +3,21 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>hibernate-osi-usrdir</artifactId>
 	<description>Hibernate OSI Userdir Module</description>
-	
+
 	<parent>
 		<groupId>com.ibm.ws.samples</groupId>
 		<artifactId>hibernate-osi</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
-	<dependencies>
+
+	<!--<dependencies>
 		<dependency>
 			<groupId>com.ibm.ws.samples</groupId>
 			<artifactId>hibernate-osi-application</artifactId>
 			<version>${project.version}</version>
 			<type>war</type>
 		</dependency>
-	</dependencies>
+	</dependencies>-->
 
 	<build>
 		<plugins>
@@ -32,10 +32,10 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/wlp-usr-dir</outputDirectory>
+							<outputDirectory>${project.build.directory}/hibernate-osi-wlp-usr-dir</outputDirectory>
 							<resources>
 								<resource>
-									<directory>src/main/wlp-usr-dir</directory>
+									<directory>src/main/hibernate-osi-wlp-usr-dir</directory>
 									<include>**</include>
 								</resource>
 							</resources>
@@ -59,11 +59,12 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/wlp-usr-dir/shared/resources/HibernateSampleLibs</outputDirectory>
+							<outputDirectory>${project.build.directory}/hibernate-osi-wlp-usr-dir/shared/resources/HibernateSampleLibs</outputDirectory>
 							<includeScope>provided</includeScope>
 							<excludeArtifactIds>hibernate-osi-application</excludeArtifactIds>
 						</configuration>
 					</execution>
+					<!--
 					<execution>
 						<id>copy-built-apps</id>
 						<phase>package</phase>
@@ -71,11 +72,39 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/wlp-usr-dir/servers/HibernateSample/apps/</outputDirectory>
+							<outputDirectory>${project.build.directory}/hibernate-osi-wlp-usr-dir/servers/HibernateSample/apps/</outputDirectory>
 							<includeArtifactIds>hibernate-osi-application</includeArtifactIds>
 						</configuration>
 					</execution>
+					-->
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<excludeDefaultDirectories>true</excludeDefaultDirectories>
+					<filesets>
+						<fileset>
+							<directory>target/</directory>
+							<useDefaultExcludes>true</useDefaultExcludes>
+							<excludes>
+								<exclude>hibernate-osi-wlp-usr-dir/</exclude>
+							</excludes>
+						</fileset>
+						<fileset>
+							<directory>target/hibernate-osi-wlp-usr-dir/</directory>
+							<excludes>
+								<exclude>.*</exclude>
+							</excludes>
+							<includes>
+								<include>*</include>
+							</includes>
+						</fileset>
+					</filesets>
+				</configuration>
 			</plugin>
 
 		</plugins>
